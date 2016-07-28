@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   function pageCount(num) {
-    return Math.ceil(num / 10)
+    return Math.ceil(num / 50)
   }
 
   function paginationCount(pages, currentPage){
@@ -26,6 +26,7 @@ $(document).ready(function(){
   function bodyDisplay(num){
     $.getJSON('https://calm-beach-80027.herokuapp.com/timeline/', 'page=' + num,  function(data){
       paginationCount(pageCount(data.length), num)
+      console.log(data)
       timelineDisplay(data)
     })
   }
@@ -43,7 +44,7 @@ $(document).ready(function(){
     })
   }
 
-  bodyDisplay(2)
+  bodyDisplay(1)
 
   $(document.body).on('click', '.pagination li a', function(ev){
   ev.preventDefault()
