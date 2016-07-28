@@ -1,19 +1,17 @@
 $(document).ready(function(){
 
   function pageCount(num) {
-    return Math.ceil(num / 50)
+    return Math.ceil(num / 100)
   }
 
   function paginationCount(pages, currentPage){
-    console.log(currentPage)
     if($('nav').length === 0){
       $('#timeline').prepend(
         "<nav aria-label=\"Page navigation\"><ul class=\"pagination\"></ul></nav>"
       )
     }
-    $('.pagination').html("")
+    $('.pagination').html(" ")
     for(i=0;i<pages;i++){
-      console.log(i)
       if((i + 1) == currentPage){
         $('.pagination').append("<li class=\"active\"><a href=\"" + (i + 1) + "\">" + (i + 1) + "</a></li>")
       } else {
@@ -25,8 +23,7 @@ $(document).ready(function(){
 
   function bodyDisplay(num){
     $.getJSON('https://calm-beach-80027.herokuapp.com/timeline/', 'page=' + num,  function(data){
-      paginationCount(pageCount(data.length), num)
-      console.log(data)
+      paginationCount(pageCount(data[0].count), num)
       timelineDisplay(data)
     })
   }
@@ -48,7 +45,7 @@ $(document).ready(function(){
 
   $(document.body).on('click', '.pagination li a', function(ev){
   ev.preventDefault()
-  timelineDisplay($(ev.target).attr('href'))
+  bodyDisplay($(ev.target).attr('href'))
   })
 
 })
